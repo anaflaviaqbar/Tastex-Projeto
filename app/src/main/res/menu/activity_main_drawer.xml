@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:showIn="navigation_view">
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/framCadastro"
+            android:title="Alterar Perfil"
+            android:icon="@drawable/editaperfil"
+            />
+        <item
+            android:id="@+id/framCompra"
+            android:icon="@drawable/compra"
+            android:title="Comprar"
+            />
+        <item
+            android:id="@+id/framVenda"
+            android:icon="@drawable/vendas"
+            android:title="Vender" />
+        <item
+            android:id="@+id/framSolicitacoesCompra"
+            android:icon="@drawable/solicitacoescompra"
+            android:title="Solicitações Compra" />
+        <item
+            android:id="@+id/framSolicitacoesVenda"
+            android:icon="@drawable/solicitacoesvenda"
+            android:title="Solicitações Venda" />
+    </group>
+
+    <item android:title="Histórico">
+        <menu>
+            <item
+                android:id="@+id/framHistoricoC"
+                android:icon="@drawable/compras"
+                android:title="Compras" />
+            <item
+                android:id="@+id/framHistoricoV"
+                android:icon="@drawable/vendas_hist"
+                android:title="Vendas" />
+        </menu>
+    </item>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/logout"
+                android:title="Sair"
+                />
+        </menu>
+    </item>
+</menu>

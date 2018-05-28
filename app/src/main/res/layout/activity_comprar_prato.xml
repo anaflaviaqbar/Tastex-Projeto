@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp"
+    tools:context=".Activity.ComprarPratoActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivImagemPratoComprarPrato"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_above="@id/progressBar"
+            android:layout_below="@id/linearLayout"
+            android:src="@mipmap/prato"
+            />
+
+        <TextView
+            android:id="@+id/txtNomePratoComprarPrato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center"
+            android:textSize="32dp"
+            android:textStyle="bold"
+            tools:text="Nome do Prato" />
+
+        <TextView
+            android:id="@+id/txtDescricaoPratoComprarPrato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textAlignment="center"
+            android:textStyle="italic"
+            tools:text="Descrição detalhada do prato" />
+
+        <TextView
+            android:id="@+id/txtPrecoPratoComprarPrato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="12.2 R$"
+            android:textSize="24dp"
+            android:layout_marginTop="8dp"
+            android:textAlignment="center"/>
+
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/btnComprarPrato"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Finalizar Pedido"
+        android:textSize="24dp"/>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.anafl.projetofirebase.Activity.LoginActivity"
+    android:background="@layout/gradient_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:src="@mipmap/nham2" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtEmail"
+            android:hint="Email"
+            android:layout_marginTop="30sp"
+            android:inputType="textEmailAddress"
+            android:layout_height="wrap_content"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edtSenha"
+            android:hint="Senha"
+            android:inputType="textPassword"
+            android:layout_height="wrap_content"
+            />
+        <Button
+            android:id="@+id/btnLogar"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFFFFF"
+            android:text="Entrar"
+            android:textSize="16dp"
+            android:layout_marginTop="16dp"
+           />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvNovaSenha"
+            android:onClick="esqueceuSenha"
+            android:text="Esqueceu seus dados de login?"
+            android:gravity="center"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_above="@+id/sign_in_button"
+        android:layout_centerHorizontal="true"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/tvAbreCadastro"
+        android:layout_marginBottom="50sp">
+    </com.google.android.gms.common.SignInButton>
+
+
+
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Não tem uma conta? Cadastre-se "
+        android:id="@+id/tvAbreCadastro"
+        android:textSize="15sp"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

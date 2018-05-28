@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@layout/gradient_background2"
+    tools:context="com.example.anafl.projetofirebase.Activity.CadastroActivity">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtCadNome"
+            android:hint="Nome completo"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtCadEmail"
+            android:hint="E-mail"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtCadCep"
+            android:hint="Cep"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtCadDataNasc"
+            android:hint="Data nascimento"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtCadContato"
+            android:hint="Telefone"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtCadSenha"
+            android:hint="Senha"
+            android:inputType="textPassword"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/edtConfSenha"
+            android:hint="Confirmar Senha"
+            android:inputType="textPassword"/>
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sexo"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Feminino"
+                android:id="@+id/rbFeminino"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Masculino"
+                android:id="@+id/rbMasculino"/>
+
+        </RadioGroup>
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btnGravar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Finalizar cadastro"
+        android:background="#FFFFFF"
+        android:textColor="@color/colorPrimary"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

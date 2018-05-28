@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="72dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/imgPrato"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginLeft="16dp"
+        android:src="@mipmap/prato" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="12dp">
+
+        <TextView
+            android:id="@+id/txtNomePrato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Nome do prato"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtDescricaoPrato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Descrição"/>
+
+        <TextView
+            android:id="@+id/txtPrecoPrato"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            tools:text="12,00 R$"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

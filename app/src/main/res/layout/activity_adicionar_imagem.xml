@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.AdicionarImagem">
+
+    <Button
+        android:id="@+id/buttonChoose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Escolher imagem"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Nome imagem"
+        android:layout_toEndOf="@+id/buttonChoose"
+        android:layout_toRightOf="@+id/buttonChoose" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/imageView"
+        android:layout_below="@id/editText"
+        android:layout_above="@id/progressBar"
+        android:layout_marginTop="20dp"/>
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_above="@+id/buttonUpload"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentStart="true"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_alignParentLeft="true" />
+
+    <Button
+        android:id="@+id/buttonUpload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/buttonChoose"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="18dp"
+        android:text="Baixe a imagem" />
+    <TextView
+        android:id="@+id/showUpload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mostra imagens"
+        android:layout_marginTop="465dp"
+        android:layout_marginLeft="200dp"
+        android:textSize="20dp"
+        android:layout_alignBaseline="@+id/buttonUpload"
+        />
+</RelativeLayout>
