@@ -15,6 +15,8 @@ import com.example.anafl.projetofirebase.Entidades.Usuario;
 import com.example.anafl.projetofirebase.Listas.ClickRecyclerViewInterfacePrato;
 import com.example.anafl.projetofirebase.Listas.PratoAdapter;
 import com.example.anafl.projetofirebase.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +33,9 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
     private String idVendedor;
 
     private TextView txtNomeVendedor;
+    private String nomeVendedor;
+    private String uidComprador;
+    private String nomeComprador;
 
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
@@ -75,7 +80,30 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
 
                     listUsers.add(u);
                 }
-                txtNomeVendedor.setText(listUsers.get(0).getNome());
+                nomeVendedor = listUsers.get(0).getNome();
+                txtNomeVendedor.setText(nomeVendedor);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    private void lerNomeComprador(){
+
+        Query queryV = databaseReference.child("users").orderByChild("id").equalTo(uidComprador);
+        queryV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Usuario> listUsers = new ArrayList<Usuario>();
+                for (DataSnapshot objSnapShot:dataSnapshot.getChildren()){
+                    Usuario u = objSnapShot.getValue(Usuario.class);
+
+                    listUsers.add(u);
+                }
+                nomeComprador = listUsers.get(0).getNome();
+                txtNomeVendedor.setText(nomeVendedor);
             }
 
             @Override
@@ -86,7 +114,11 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
     }
 
     private void instanciarFirebase() {
-
+        uidComprador = null;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if(user != null){
+            uidComprador = user.getUid();
+        }
         databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -143,6 +175,8 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
         bundle.putFloat("preco", pratoAtual.getPreco());
         bundle.putString("uidPrato", pratoAtual.getUidPrato());
         bundle.putInt("tipoPrato", pratoAtual.getTipoPrato());
+        bundle.putString("nomeVendedor", nomeVendedor);
+        bundle.putString("nomeComprador", nomeComprador);
         comprarPrato.putExtras(bundle);
 
         startActivity(comprarPrato);

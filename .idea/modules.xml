@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\Pichau\AndroidStudioProjects\TastexDsv-master-master\TastexDsv-master-master\TastexDsv-master.iml" filepath="C:\Users\Pichau\AndroidStudioProjects\TastexDsv-master-master\TastexDsv-master-master\TastexDsv-master.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TastexDsv-master-master.iml" filepath="$PROJECT_DIR$/TastexDsv-master-master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Tastex-Projeto.iml" filepath="$PROJECT_DIR$/.idea/Tastex-Projeto.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\Pichau\AndroidStudioProjects\TastexDsv-master-master\TastexDsv-master-master\app\app.iml" filepath="C:\Users\Pichau\AndroidStudioProjects\TastexDsv-master-master\TastexDsv-master-master\app\app.iml" />
     </modules>
   </component>
 </project>

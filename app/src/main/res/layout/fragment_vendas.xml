@@ -1,13 +1,27 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.anafl.projetofirebase.Fragments.Vendas">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Vendas" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Vendas"
+        android:textColor="@android:color/holo_green_dark"
+        android:textSize="24dp"
+        android:textStyle="bold"/>
 
-</FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvPedidosVendas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:layout_marginTop="8dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

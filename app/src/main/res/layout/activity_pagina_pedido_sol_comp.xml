@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.PaginaPedidoSolComp">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PEDIDO"
+            android:layout_gravity="center"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/imgPratoSolComp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/prato"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/txtNomeVendedorSolComp"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Nome do vendedor"/>
+        <TextView
+            android:id="@+id/txtNomePratoSolComp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Nome do prato"/>
+        <TextView
+            android:id="@+id/txtDescPratoSolComp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Descrição do Prato"/>
+        <TextView
+            android:id="@+id/txtPrecoPratoSolComp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Preço do Prato"/>
+        <TextView
+            android:id="@+id/txtDataPedidoSolComp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Data do Pedido"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/perguntaSolCompra"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Deseja cancelar o pedido?"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/botoesSolComp"/>
+
+    <LinearLayout
+        android:id="@+id/botoesSolComp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/btnNaoSolComp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Não"/>
+        <Button
+            android:id="@+id/btnSimSolComp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sim"/>
+    </LinearLayout>
+
+</RelativeLayout>

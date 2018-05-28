@@ -78,7 +78,10 @@
         <activity android:name=".Activity.AdicionarImagem" />
         <activity android:name=".Activity.EditarPrato" />
         <activity android:name=".Activity.PaginaVendedor" />
-        <activity android:name=".Activity.EditarPerfil"></activity>
+        <activity android:name=".Activity.EditarPerfil" />
+        <activity android:name=".Activity.ComprarPratoActivity" />
+        <activity android:name=".Activity.PaginaPedidoSolComp" />
+        <activity android:name=".Activity.PaginaPedidoSolVenda"></activity>
     </application>
 
 </manifest>
