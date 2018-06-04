@@ -177,6 +177,7 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
         bundle.putInt("tipoPrato", pratoAtual.getTipoPrato());
         bundle.putString("nomeVendedor", nomeVendedor);
         bundle.putString("nomeComprador", nomeComprador);
+        bundle.putString("imgPratoUrl", pratoAtual.getImgPratoUrl());
         comprarPrato.putExtras(bundle);
 
         startActivity(comprarPrato);

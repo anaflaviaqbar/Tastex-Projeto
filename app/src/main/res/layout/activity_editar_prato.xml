@@ -16,50 +16,112 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nome do Prato"
-            android:textSize="24dp"/>
+            android:textSize="18dp"/>
         <EditText
             android:id="@+id/edtNomePratoEditAct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Macarrao"
-            android:textSize="24dp"/>
+            android:textSize="18dp"/>
         <TextView
             android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Descrição"
-            android:textSize="24dp"/>
+            android:textSize="18dp"/>
         <EditText
             android:id="@+id/edtDescPratoEditAct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Macarrao com queijo"
-            android:textSize="16dp"/>
-        <TextView
-            android:layout_marginTop="8dp"
+            android:textSize="18dp"/>
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Preço"
-            android:textSize="24dp"/>
-        <EditText
-            android:id="@+id/edtPrecoPratoEditAct"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            tools:text="10"
-            android:textSize="16dp"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tipo do Prato"
-            android:textSize="24dp"/>
+            android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/spinTipoPratoEditarPrato"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Preço"
+                    android:textSize="18dp"/>
+                <EditText
+                    android:id="@+id/edtPrecoPratoEditAct"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    tools:text="10"
+                    android:textSize="16dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo do Prato"
+                    android:layout_gravity="right"
+                    android:textSize="18dp"/>
+
+                <Spinner
+                    android:id="@+id/spinTipoPratoEditarPrato"
+                    android:layout_gravity="right"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"></Spinner>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/btnEscolherImagemEditarPrato"
+                android:text="Escolher Imagem"/>
+
+            <Button
+                android:id="@+id/btnUploadImagemEditarPrato"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Baixar Imagem"/>
+
+
+        </LinearLayout>
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/progressBarEditarPrato"
+            android:layout_above="@+id/btnAddPrato"
+            android:layout_alignParentStart="true"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_alignParentLeft="true" />
+
+        <ImageView
+            android:id="@+id/imagemEscolhidaEditarPrato"
             android:layout_width="150dp"
-            android:layout_height="wrap_content">
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_above="@id/progressBar"
+            android:layout_below="@id/linearLayout"
+            />
 
-        </Spinner>
+
+
 
 
     </LinearLayout>

@@ -26,12 +26,13 @@ public class EditarPrato extends AppCompatActivity {
     private String uid;
 
 
-    private String nomePrato;
-    private String descPrato;
-    private float precoPrato;
     private String idVendedor;
+    private String nomePrato;
+    private float precoPrato;
+    private String descPrato;
     private String uidPrato;
     private int tipoPrato;
+    private String imgPratoUrl;
     private Spinner spinTipoPrato;
 
     private EditText edtNomePrato;
@@ -41,6 +42,8 @@ public class EditarPrato extends AppCompatActivity {
 
     private Button excluirPrato;
     private Button editarPrato;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +57,13 @@ public class EditarPrato extends AppCompatActivity {
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
 
-        nomePrato = bundle.getString("nome");
-        descPrato = bundle.getString("descricao");
-        precoPrato = bundle.getFloat("preco");
         idVendedor = bundle.getString("idVendedor");
+        nomePrato = bundle.getString("nome");
+        precoPrato = bundle.getFloat("preco");
+        descPrato = bundle.getString("descricao");
         uidPrato = bundle.getString("uidPrato");
-        tipoPrato = 0;
+        tipoPrato = bundle.getInt("tipoPrato");
+        imgPratoUrl = bundle.getString("imgPratoUrl");
 
         edtNomePrato = (EditText)findViewById(R.id.edtNomePratoEditAct);
         edtNomePrato.setText(nomePrato);
@@ -89,10 +93,13 @@ public class EditarPrato extends AppCompatActivity {
 
                 Prato pratoEditado = new Prato();
 
-                pratoEditado.setUidPrato(uidPrato);
+                pratoEditado.setIdVendedor(idVendedor);
                 pratoEditado.setNome(edtNomePrato.getText().toString());
-                pratoEditado.setDescricao(edtDescPrato.getText().toString());
                 pratoEditado.setPreco(Float.parseFloat(edtPrecoPrato.getText().toString()));
+                pratoEditado.setDescricao(edtDescPrato.getText().toString());
+                pratoEditado.setUidPrato(uidPrato);
+                pratoEditado.setTipoPrato(tipoPrato);
+                pratoEditado.setImgPratoUrl(imgPratoUrl);
                 //pratoEditado.setIdVendedor(edtIdVendedorPrato.getText().toString());
 
                 mDatabaseReference.child("pratos").child(uidPrato).setValue(pratoEditado);
@@ -108,6 +115,8 @@ public class EditarPrato extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tipos_pratos, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinTipoPrato.setAdapter(adapter);
+        selecionarPosicaoSpinner();
+        spinTipoPrato.setSelection(adapter.getPosition(selecionarPosicaoSpinner()));
         spinTipoPrato.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -144,6 +153,33 @@ public class EditarPrato extends AppCompatActivity {
 
 
     }
+
+    private String selecionarPosicaoSpinner() {
+        String spinTipoPrato;
+
+        switch (tipoPrato){
+            case 0:
+                spinTipoPrato = "Sem Classificação";
+                break;
+            case 1:
+                spinTipoPrato = "Normal";
+                break;
+            case 2:
+                spinTipoPrato = "Low Carb";
+                break;
+            case 3:
+                spinTipoPrato = "Vegetariano";
+                break;
+            case 4:
+                spinTipoPrato = "Vegano";
+                break;
+            default:
+                spinTipoPrato = "Sem Classificação";
+        }
+
+        return spinTipoPrato;
+    }
+
 
     private void instanciarFirebase(){
         uid = null;

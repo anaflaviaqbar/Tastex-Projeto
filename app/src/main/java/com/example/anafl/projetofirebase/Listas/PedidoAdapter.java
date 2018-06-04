@@ -4,8 +4,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.anafl.projetofirebase.Entidades.Pedido;
 import com.example.anafl.projetofirebase.R;
 
@@ -50,6 +52,8 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.ViewHolder
         holder.txtNomeCompradorLisPedidos.setText(pedido.getNomeComprador());
         holder.txtNomeVendedorLisPedidos.setText(pedido.getNomeVendedor());
 
+        Glide.with(holder.imgPratoPedidos.getContext()).load(pedido.getImgPratoUrl()).into(holder.imgPratoPedidos);
+
     }
 
     @Override
@@ -65,6 +69,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.ViewHolder
         public TextView txtNomePratoLisPedidos;
         public TextView txtPrecoPratoLisPedidos;
         public TextView txtDataPedidoLisPedidos;
+        public ImageView imgPratoPedidos;
 
 
         public ViewHolderPedido(View itemView) {
@@ -76,6 +81,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.ViewHolder
             txtNomePratoLisPedidos = (TextView) itemView.findViewById(R.id.txtNomePratoLisPedidos);
             txtPrecoPratoLisPedidos = (TextView) itemView.findViewById(R.id.txtPrecoPratoLisPedidos);
             txtDataPedidoLisPedidos = (TextView) itemView.findViewById(R.id.txtDataPedidoLisPedidos);
+            imgPratoPedidos = (ImageView) itemView.findViewById(R.id.imgPratoPedidos);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

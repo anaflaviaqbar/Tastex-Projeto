@@ -8,6 +8,7 @@ public class Prato{
     private String descricao;
     private String uidPrato;
     private int tipoPrato;  /* 0 - Sem Classificação ,1 - Normal, 2 - Low Carb, 4 - Vegetariano, 5 - Vegano */
+    private String imgPratoUrl;
 
     public Prato (){
 
@@ -66,5 +67,13 @@ public class Prato{
 
     public void setTipoPrato(int tipoPrato) {
         this.tipoPrato = tipoPrato;
+    }
+
+    public String getImgPratoUrl() {
+        return imgPratoUrl;
+    }
+
+    public void setImgPratoUrl(String imgPratoUrl) {
+        this.imgPratoUrl = imgPratoUrl;
     }
 }

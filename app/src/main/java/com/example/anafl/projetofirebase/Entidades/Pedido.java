@@ -15,6 +15,7 @@ public class Pedido {
     private String uidPrato;
     private String dataPedido;
     private int status; // 0 - pedido pendente, 1 - pedido confirmado, 2 - pedido cancelado
+    private String imgPratoUrl;
 
     public Pedido(){
 
@@ -106,5 +107,13 @@ public class Pedido {
 
     public void setNomeComprador(String nomeComprador) {
         this.nomeComprador = nomeComprador;
+    }
+
+    public String getImgPratoUrl() {
+        return imgPratoUrl;
+    }
+
+    public void setImgPratoUrl(String imgPratoUrl) {
+        this.imgPratoUrl = imgPratoUrl;
     }
 }

@@ -168,11 +168,13 @@ public class Vender extends Fragment implements ClickRecyclerViewInterfacePrato{
 
         Intent intent = new Intent(getContext(), EditarPrato.class);
         Bundle bundle = new Bundle();
-        bundle.putString("nome", pratoAtual.getNome());
-        bundle.putString("descricao", pratoAtual.getDescricao());
         bundle.putString("idVendedor", pratoAtual.getIdVendedor());
+        bundle.putString("nome", pratoAtual.getNome());
         bundle.putFloat("preco", pratoAtual.getPreco());
+        bundle.putString("descricao", pratoAtual.getDescricao());
         bundle.putString("uidPrato", pratoAtual.getUidPrato());
+        bundle.putInt("tipoPrato", pratoAtual.getTipoPrato());
+        bundle.putString("imgPratoUrl", pratoAtual.getImgPratoUrl());
         intent.putExtras(bundle);
         startActivity(intent);
     }

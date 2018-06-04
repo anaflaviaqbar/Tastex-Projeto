@@ -26,6 +26,7 @@ public class ComprarPratoActivity extends AppCompatActivity {
     private String uidPrato;
     private String nomeComprador;
     private String nomeVendedor;
+    private String imgPratoUrl;
 
     private TextView nomePratoComprarPrato;
     private TextView descPratoComprarPrato;
@@ -53,6 +54,7 @@ public class ComprarPratoActivity extends AppCompatActivity {
         uidPrato = bundle.getString("uidPrato");
         nomeComprador = bundle.getString("nomeComprador");
         nomeVendedor = bundle.getString("nomeVendedor");
+        imgPratoUrl = bundle.getString("imgPratoUrl");
 
         nomePratoComprarPrato = (TextView) findViewById(R.id.txtNomePratoComprarPrato);
         descPratoComprarPrato = (TextView) findViewById(R.id.txtDescricaoPratoComprarPrato);
@@ -90,6 +92,7 @@ public class ComprarPratoActivity extends AppCompatActivity {
         novoPedido.setStatus(0);
         novoPedido.setNomeComprador(nomeComprador);
         novoPedido.setNomeVendedor(nomeVendedor);
+        novoPedido.setImgPratoUrl(imgPratoUrl);
 
         String idPedido = databaseReference.child("pedidos").push().getKey();
         novoPedido.setIdPedido(idPedido);
