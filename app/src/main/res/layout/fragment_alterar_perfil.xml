@@ -11,20 +11,34 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="159dp"
+        android:layout_height="119dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="22dp"
-        android:src="@mipmap/ana" />
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+
+        />
+
+    <TextView
+        android:id="@+id/edtNome"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="152dp"
+        android:textSize="40sp"
+        android:textAlignment="center"/>
 
     <TextView
         android:id="@+id/edtDescricao"
+        android:layout_below="@+id/edtNome"
         android:layout_width="match_parent"
-        android:layout_height="237dp"
+        android:layout_height="232dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="60dp"
-        android:text="Descrição:"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="62dp"
         android:textSize="20dp" />
 
 
@@ -35,4 +49,5 @@
         android:layout_below="@+id/edtDescricao"
         android:layout_marginTop="-60dp"
         android:text="Editar Perfil" />
+
 </RelativeLayout>

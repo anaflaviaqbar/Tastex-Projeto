@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.anafl.projetofirebase.Entidades.Prato;
 //import com.example.anafl.projetofirebase.Manifest;
 import com.example.anafl.projetofirebase.R;
@@ -72,6 +73,7 @@ public class AdicionarPratoActivity extends AppCompatActivity {
     private ProgressBar progressBar;
 
     private DatabaseReference mDatabaseRefImg;
+
 
 
 

@@ -1,6 +1,7 @@
 package com.example.anafl.projetofirebase.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -10,9 +11,17 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.anafl.projetofirebase.Fragments.AlterarPerfil;
 import com.example.anafl.projetofirebase.Fragments.Comprar;
 import com.example.anafl.projetofirebase.Fragments.Compras;
@@ -22,6 +31,11 @@ import com.example.anafl.projetofirebase.Fragments.Vendas;
 import com.example.anafl.projetofirebase.Fragments.Vender;
 import com.example.anafl.projetofirebase.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements SolicitacoesCompra.OnFragmentInteractionListener, Comprar.OnFragmentInteractionListener,
         Vender.OnFragmentInteractionListener,Vendas.OnFragmentInteractionListener,
@@ -45,14 +59,64 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        DatabaseReference imagemReferencia = FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth
+                .getInstance().getCurrentUser().getUid()).child("imagemPerfil");
+
+        DatabaseReference nomeReferencia = FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth
+                .getInstance().getCurrentUser().getUid()).child("nome");
+
+
+        imagemReferencia.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                String imagemUri = dataSnapshot.getValue(String.class);
+                final ImageView imagemPerfil = findViewById(R.id.profileImageView);
+
+                Glide.with(imagemPerfil.getContext()).asBitmap().load(imagemUri).into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                        imagemPerfil.setImageBitmap(resource);
+                    }
+                });
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+
+                // ...
+            }
+        });
+
+        nomeReferencia.addValueEventListener (new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                String nome = dataSnapshot.getValue(String.class);
+                final TextView nomePerfil = findViewById(R.id.textNome);
+                nomePerfil.setText(nome);
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+
+                // ...
+            }
+        });
+
+
         setTitle("Comprar");
         Comprar fragment = new Comprar();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fram, fragment, "Comprar");
         fragmentTransaction.commit();
-
-
     }
+
 
 
     @Override

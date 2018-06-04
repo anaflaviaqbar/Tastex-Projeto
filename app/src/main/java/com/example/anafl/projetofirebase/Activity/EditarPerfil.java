@@ -18,7 +18,6 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.anafl.projetofirebase.R;
-import com.example.anafl.projetofirebase.Upload;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -156,7 +155,7 @@ public class EditarPerfil extends AppCompatActivity {
 
     public void uploadImagem(){
         if(mImageUri != null){
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+            StorageReference fileReference = mStorageRef.child(String.valueOf(System.currentTimeMillis()) + "." + getFileExtension(mImageUri));
 
             mUploadTask= fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -170,7 +169,8 @@ public class EditarPerfil extends AppCompatActivity {
                                 }
                             }, 5000);
                             Toast.makeText(EditarPerfil.this, "Imagem adicionada", Toast.LENGTH_SHORT).show();
-                            FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid()).child("imagemPerfil").setValue(taskSnapshot.getDownloadUrl().toString());
+                            FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid()).child("imagemPerfil")
+                                    .setValue(taskSnapshot.getDownloadUrl().toString());
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -184,7 +184,6 @@ public class EditarPerfil extends AppCompatActivity {
                             progressBar.setProgress((int) progress);
                         }
                     });
-
         }else {
             Toast.makeText(this, "Nenhuma imagem selecionada", Toast.LENGTH_SHORT).show();
         }
@@ -192,4 +191,6 @@ public class EditarPerfil extends AppCompatActivity {
     public void inicializaIdPerfil(){
         idPerfil = mDatabase.child("perfil").push().getKey();
 }
+    public EditarPerfil(){
+    }
 }

@@ -7,11 +7,12 @@
 
 
     <ImageView
+        android:id="@+id/ImageView3"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:layout_marginLeft="16dp"
         android:padding="4dp"
-        android:src="@mipmap/ana" />
+         />
 
     <LinearLayout
         android:layout_width="match_parent"

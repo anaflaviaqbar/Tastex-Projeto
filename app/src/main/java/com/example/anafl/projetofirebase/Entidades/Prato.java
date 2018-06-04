@@ -1,6 +1,6 @@
 package com.example.anafl.projetofirebase.Entidades;
 
-public class Prato {
+public class Prato{
 
     private String idVendedor; // id do prato é o mesmo id do vendedor
     private String nome;

@@ -18,21 +18,16 @@
         android:layout_width="97dp"
         android:layout_height="100dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/ana" />
+        app:srcCompat="@mipmap/ana"
+        />
 
     <TextView
+        android:id="@+id/textNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        tools:text="Ana Flávia Sousa Qbar"
         android:textColor="#000000"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="anaflaviaqbar@hotmail.com"
-        android:textColor="#000000"/>
 
 </LinearLayout>
