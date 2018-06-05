@@ -1,25 +1,43 @@
 package com.example.anafl.projetofirebase.Activity;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.anafl.projetofirebase.Entidades.Prato;
 import com.example.anafl.projetofirebase.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class EditarPrato extends AppCompatActivity {
 
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     private DatabaseReference mDatabaseReference;
 
@@ -43,6 +61,20 @@ public class EditarPrato extends AppCompatActivity {
     private Button excluirPrato;
     private Button editarPrato;
 
+    //Imagem
+    private String imgPratoUrlNova;
+    private Uri mImageUri;
+
+    private ImageView imageView;
+
+    private Button btnEscolherImagem;
+    private Button btnUploadImagem;
+
+    private StorageReference mStorageRef;
+    private StorageTask mUploadTask;
+
+    private ProgressBar progressBar;
+
 
 
     @Override
@@ -64,6 +96,7 @@ public class EditarPrato extends AppCompatActivity {
         uidPrato = bundle.getString("uidPrato");
         tipoPrato = bundle.getInt("tipoPrato");
         imgPratoUrl = bundle.getString("imgPratoUrl");
+        imgPratoUrlNova = " ";
 
         edtNomePrato = (EditText)findViewById(R.id.edtNomePratoEditAct);
         edtNomePrato.setText(nomePrato);
@@ -99,7 +132,11 @@ public class EditarPrato extends AppCompatActivity {
                 pratoEditado.setDescricao(edtDescPrato.getText().toString());
                 pratoEditado.setUidPrato(uidPrato);
                 pratoEditado.setTipoPrato(tipoPrato);
-                pratoEditado.setImgPratoUrl(imgPratoUrl);
+                if(imgPratoUrlNova == " ") {
+                    pratoEditado.setImgPratoUrl(imgPratoUrl);
+                }else{
+                    pratoEditado.setImgPratoUrl(imgPratoUrlNova);
+                }
                 //pratoEditado.setIdVendedor(edtIdVendedorPrato.getText().toString());
 
                 mDatabaseReference.child("pratos").child(uidPrato).setValue(pratoEditado);
@@ -150,9 +187,120 @@ public class EditarPrato extends AppCompatActivity {
         });
         //Fim Configuração Spinner
 
+        //Imagem
+        btnEscolherImagem = (Button) findViewById(R.id.btnEscolherImagemEditarPrato);
+        btnUploadImagem = (Button) findViewById(R.id.btnUploadImagemEditarPrato);
+        imageView = (ImageView) findViewById(R.id.imagemEscolhidaEditarPrato);
+        mStorageRef = FirebaseStorage.getInstance().getReference("Imagens Prato");
+        //mDatabaseRefImg = FirebaseDatabase.getInstance().getReference("Imagens Prato");
+        progressBar = (ProgressBar) findViewById(R.id.progressBarEditarPrato);
+
+        btnEscolherImagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                abrirImagens();
+            }
+        });
+
+        btnUploadImagem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mUploadTask != null && mUploadTask.isInProgress()){
+                    Toast.makeText(EditarPrato.this, "Imagem sendo carregada", Toast.LENGTH_SHORT).show();
+                }
+                uploadImagem();
+            }
+        });
+
 
 
     }
+
+    //Imagens
+    public void uploadImagem(){
+        if(mImageUri != null){
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "." + getFileExtension(mImageUri));
+
+            mUploadTask= fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressBar.setProgress(0);
+                                }
+                            }, 5000);
+                            //Upload upload = new Upload(taskSnapshot.getDownloadUrl().toString(), idPrato);
+                            imgPratoUrlNova = taskSnapshot.getDownloadUrl().toString();
+                            //String uploadId = mDatabaseRefImg.push().getKey();
+                            //mDatabaseRefImg.child(uploadId).setValue(upload);
+                            Toast.makeText(EditarPrato.this, "Imagem adicionada", Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(EditarPrato.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                            progressBar.setProgress((int) progress);
+                        }
+                    });
+
+        }else {
+            Toast.makeText(this, "Nenhuma imagem selecionada", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void abrirImagens(){
+        try {
+            if (ActivityCompat.checkSelfPermission(EditarPrato.this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(EditarPrato.this, new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE, android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, PICK_IMAGE_REQUEST);
+            } else {
+                Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(intent, PICK_IMAGE_REQUEST);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            mImageUri = data.getData();
+
+            Picasso.get().load(mImageUri).into(imageView);
+        }
+    }
+
+    private String getFileExtension(Uri uri){
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PICK_IMAGE_REQUEST:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(intent, PICK_IMAGE_REQUEST);
+                } else {
+                    Toast.makeText(EditarPrato.this, "Habilite permissão", Toast.LENGTH_LONG).show();
+                }
+                break;
+        }
+    }
+
+
+    //Fim Imagens
 
     private String selecionarPosicaoSpinner() {
         String spinTipoPrato;
