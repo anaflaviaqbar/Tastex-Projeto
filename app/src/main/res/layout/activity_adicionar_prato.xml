@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AdicionarPratoActivity">
+    tools:context=".Activity.AdicionarPratoActivity"
+    android:background="@layout/gradient_background2">
 
     <LinearLayout
         android:id="@+id/linearLayout"

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.AdicionarImagem">
+    tools:context=".Activity.AdicionarImagem"
+    android:background="@layout/gradient_background1">
 
     <Button
         android:id="@+id/buttonChoose"

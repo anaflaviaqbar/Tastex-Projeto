@@ -1,54 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:clipToPadding="true"
+        app:cardCornerRadius="45dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout"
+        app:layout_constraintTop_toTopOf="@+id/linearLayout">
 
-    <LinearLayout
-        android:layout_marginTop="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
         <ImageView
             android:id="@+id/imgPerfilVendedor"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginLeft="16dp"
-            android:padding="4dp"
-            />
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+    </android.support.v7.widget.CardView>
+    <TextView
+        android:id="@+id/txtTituloVendedor"
+        android:layout_width="283dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDistanciaVendedor"
+        android:layout_marginLeft="101dp"
+        android:textStyle="bold"
+        tools:text="Nome do Vendedor" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="8dp">
-
-            <TextView
-                android:id="@+id/txtTituloVendedor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Nome do Vendedor"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txtDistanciaVendedor"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Distância"/>
-
-        </LinearLayout>
-    </LinearLayout>
+    <TextView
+        android:id="@+id/txtDistanciaVendedor"
+        android:layout_width="285dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="101dp"
+        android:layout_centerVertical="true"
+        tools:text="Distância" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:background="@android:color/darker_gray"></View>
+        android:background="@android:color/darker_gray">
 
-
-</LinearLayout>
+    </View>
+    </RelativeLayout>

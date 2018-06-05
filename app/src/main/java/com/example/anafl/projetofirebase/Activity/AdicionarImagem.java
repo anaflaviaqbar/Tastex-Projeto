@@ -41,6 +41,7 @@ public class AdicionarImagem extends AppCompatActivity {
     private Button buttonChoose;
     private TextView showUpload;
     private EditText editText;
+
     private ImageView imageView;
     private ProgressBar progressBar;
     private StorageReference mStorageRef;
