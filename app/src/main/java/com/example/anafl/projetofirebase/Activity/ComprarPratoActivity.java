@@ -5,9 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.anafl.projetofirebase.Entidades.Pedido;
 import com.example.anafl.projetofirebase.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +33,7 @@ public class ComprarPratoActivity extends AppCompatActivity {
     private TextView nomePratoComprarPrato;
     private TextView descPratoComprarPrato;
     private TextView precoPratoComprarPrato;
+    private ImageView imgPratoComprarPrato;
 
     private Button comprarPrato;
 
@@ -59,10 +62,13 @@ public class ComprarPratoActivity extends AppCompatActivity {
         nomePratoComprarPrato = (TextView) findViewById(R.id.txtNomePratoComprarPrato);
         descPratoComprarPrato = (TextView) findViewById(R.id.txtDescricaoPratoComprarPrato);
         precoPratoComprarPrato = (TextView) findViewById(R.id.txtPrecoPratoComprarPrato);
+        imgPratoComprarPrato = (ImageView) findViewById(R.id.imgPratoComprarPrato);
 
         nomePratoComprarPrato.setText(nomePrato);
         descPratoComprarPrato.setText(descPrato);
         precoPratoComprarPrato.setText(precoPrato + " R$");
+
+        Glide.with(imgPratoComprarPrato.getContext()).load(imgPratoUrl).into(imgPratoComprarPrato);
 
         inicializarFirebase();
 

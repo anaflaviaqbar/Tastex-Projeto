@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.anafl.projetofirebase.Entidades.Prato;
 import com.example.anafl.projetofirebase.Entidades.Usuario;
 import com.example.anafl.projetofirebase.Listas.ClickRecyclerViewInterfacePrato;
@@ -32,6 +34,7 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
 
     private String idVendedor;
 
+    private ImageView imgPerfilPagVendedor;
     private TextView txtNomeVendedor;
     private String nomeVendedor;
     private String uidComprador;
@@ -59,8 +62,11 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
 
         txtNomeVendedor = (TextView) findViewById(R.id.txtNomeVendedorPagVend);
 
+        imgPerfilPagVendedor = (ImageView) findViewById(R.id.imgPerfilPagVendedor);
 
 
+
+        lerNomeComprador();
         lerNomeVendedor();
 
         lerPratosDoVendedor();
@@ -82,6 +88,7 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
                 }
                 nomeVendedor = listUsers.get(0).getNome();
                 txtNomeVendedor.setText(nomeVendedor);
+                Glide.with(imgPerfilPagVendedor.getContext()).load(listUsers.get(0).getImagemPerfil()).into(imgPerfilPagVendedor);
             }
 
             @Override
@@ -103,7 +110,7 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
                     listUsers.add(u);
                 }
                 nomeComprador = listUsers.get(0).getNome();
-                txtNomeVendedor.setText(nomeVendedor);
+                //txtNomeVendedor.setText(nomeVendedor);
             }
 
             @Override
