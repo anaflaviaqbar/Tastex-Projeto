@@ -30,12 +30,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="Nome do prato"
+                android:maxLines="1"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txtDescricaoPrato"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
                 tools:text="Descrição"/>
 
             <TextView

@@ -114,7 +114,7 @@ public class Vender extends Fragment implements ClickRecyclerViewInterfacePrato{
                     listPratos.add(p);
                 }
                 instanciarRecyclerView(view, listPratos);
-                Toast.makeText(getContext(), "Leu os dados", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), "Leu os dados", Toast.LENGTH_LONG).show();
             }
 
             @Override

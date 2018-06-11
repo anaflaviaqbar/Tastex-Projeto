@@ -7,9 +7,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.anafl.projetofirebase.Activity.PaginaVendedor;
@@ -41,9 +46,15 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
     private VendedorAdapter vendedorAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
 
+    private EditText edtPesquisar;
+    private Button btnPesquisar;
+
     private View view;
 
-    //private List<Usuario> listVendedores;
+    private String pesquisa;
+
+    private List<Usuario> listVendedores = new ArrayList<>();;
+
 
     private DatabaseReference databaseReference;
 
@@ -57,19 +68,63 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_comprar, container, false);
 
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_vendedores);
+        edtPesquisar = (EditText) view.findViewById(R.id.edtPesquisar);
+        btnPesquisar = view.findViewById(R.id.btnPesquisar);
 
-        instanciarFirebase();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+
+        btnPesquisar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pesquisa = edtPesquisar.getText().toString();
+                Toast.makeText(getContext(), "Pesquisar: "+pesquisa, Toast.LENGTH_SHORT).show();
+                //pesquisarUsuarios(pesquisa.toLowerCase());
+
+            }
+        });
 
 
         lerUsuarios();
 
+
         return view;
     }
 
-    private void instanciarFirebase() {
+    private void pesquisarUsuarios(final CharSequence pesquisa) {
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        Query query;
+        query = databaseReference.child("users").orderByChild("id");
+
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Usuario> list = new ArrayList<>();
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    Usuario usuario = snapshot.getValue(Usuario.class);
+
+                    if(usuario.getNome().toLowerCase().contains(pesquisa)){
+                        list.add(usuario);
+                    }
+
+                }
+
+                setAdapter(view, list);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
+
 
     private void lerUsuarios(){
         Query query;
@@ -84,7 +139,7 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
 
                     listaUsuarios.add(usuario);
                 }
-                instanciarRecyclerView(view, listaUsuarios);
+                setAdapter(view, listaUsuarios);
             }
 
             @Override
@@ -94,16 +149,10 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
         });
     }
 
-    public void instanciarRecyclerView(View view, List<Usuario> listUsuario){
-
-        //Aqui é instanciado o Recyclerview
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.rv_vendedores);
-        mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+    public void setAdapter(View view, List<Usuario> listUsuario){
 
         vendedorAdapter = new VendedorAdapter(listUsuario, this);
         mRecyclerView.setAdapter(vendedorAdapter);
-
 
     }
 
@@ -130,6 +179,7 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
         super.onDetach();
         mListener = null;
     }
+
 
     @Override
     public void onCustomClick(Object object) {

@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.example.anafl.projetofirebase.Activity.MainActivity;
 import com.example.anafl.projetofirebase.Entidades.Usuario;
 import com.example.anafl.projetofirebase.R;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -25,6 +26,12 @@ public class VendedorAdapter extends RecyclerView.Adapter<VendedorAdapter.ViewHo
         this.dados = dados;
         this.clickRecyclerViewInterfaceVendedor = clickRecyclerViewInterfaceVendedor;
     }
+    public VendedorAdapter(List<Usuario> dados){
+        this.dados = dados;
+        //this.clickRecyclerViewInterfaceVendedor = clickRecyclerViewInterfaceVendedor;
+    }
+
+
 
 
     @Override
