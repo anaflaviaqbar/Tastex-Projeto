@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Seu Cardápio"
+            android:textStyle="bold"
             android:textSize="24sp" />
 
         <android.support.v7.widget.RecyclerView

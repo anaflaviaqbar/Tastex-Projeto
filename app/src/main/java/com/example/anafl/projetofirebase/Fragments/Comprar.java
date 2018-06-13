@@ -53,7 +53,7 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
 
     private String pesquisa;
 
-    private List<Usuario> listVendedores = new ArrayList<>();;
+    private List<Usuario> listVendedores = new ArrayList<>();
 
 
     private DatabaseReference databaseReference;

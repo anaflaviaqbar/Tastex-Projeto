@@ -33,11 +33,6 @@
             android:layout_height="50dp"
             android:background="@drawable/botao_oval" />
 
-
-
-
-
-
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_vendedores"

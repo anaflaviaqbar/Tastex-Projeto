@@ -25,6 +25,8 @@ import com.bumptech.glide.request.transition.Transition;
 import com.example.anafl.projetofirebase.Fragments.AlterarPerfil;
 import com.example.anafl.projetofirebase.Fragments.Comprar;
 import com.example.anafl.projetofirebase.Fragments.Compras;
+import com.example.anafl.projetofirebase.Fragments.Favoritos;
+import com.example.anafl.projetofirebase.Fragments.Recomendacoes;
 import com.example.anafl.projetofirebase.Fragments.SolicitacoesCompra;
 import com.example.anafl.projetofirebase.Fragments.SolicitacoesVenda;
 import com.example.anafl.projetofirebase.Fragments.Vendas;
@@ -171,7 +173,19 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fram, fragment, "Vender");
             fragmentTransaction.commit();
-        } else if (id == R.id.framSolicitacoesCompra) {
+        } else if (id == R.id.framFavoritos) {
+            setTitle("Favoritos");
+            Favoritos fragment = new Favoritos();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fram, fragment, "Favoritos");
+            fragmentTransaction.commit();
+        }else if (id == R.id.framRecomendacoes) {
+            setTitle("Recomencações");
+            Recomendacoes fragment = new Recomendacoes();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fram, fragment, "Recomencações");
+            fragmentTransaction.commit();
+        }else if (id == R.id.framSolicitacoesCompra) {
             setTitle("Solicitações Compra");
             SolicitacoesCompra fragment = new SolicitacoesCompra();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

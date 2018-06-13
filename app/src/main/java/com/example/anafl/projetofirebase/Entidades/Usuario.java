@@ -3,7 +3,9 @@ package com.example.anafl.projetofirebase.Entidades;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,6 +25,7 @@ public class Usuario {
     private String telefone;
     private String descricao;
     private String imagemPerfil;
+    private List<String> listaIdFavoritos = new ArrayList<>();
 
     public Usuario(){
     }
@@ -133,5 +136,24 @@ public class Usuario {
 
     public void setImagemPerfil(String imagemPerfil) {
         this.imagemPerfil = imagemPerfil;
+    }
+
+    public List<String> getListaIdFavoritos() {
+        return listaIdFavoritos;
+    }
+
+    public void setListaIdFavoritos(List<String> listaIdFavoritos) {
+        this.listaIdFavoritos = listaIdFavoritos;
+    }
+
+    public boolean addFavorito(String id){
+
+        if(!listaIdFavoritos.contains(id)){
+            this.listaIdFavoritos.add(id);
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }

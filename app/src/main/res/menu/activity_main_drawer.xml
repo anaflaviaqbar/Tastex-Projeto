@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
 
@@ -10,6 +9,16 @@
             android:id="@+id/framCadastro"
             android:title="Alterar Perfil"
             android:icon="@drawable/editaperfil"
+            />
+        <item
+            android:id="@+id/framFavoritos"
+            android:title="Favoritos"
+            android:icon="@drawable/favoritos_24dp"
+            />
+        <item
+            android:id="@+id/framRecomendacoes"
+            android:title="Recomendações"
+            android:icon="@drawable/recomendacoes_24dp"
             />
         <item
             android:id="@+id/framCompra"

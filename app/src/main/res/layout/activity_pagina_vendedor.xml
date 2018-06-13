@@ -53,5 +53,16 @@
 
     </LinearLayout>
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btnAdicionarFavoritos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:src="@mipmap/favoritos_add"
+        app:backgroundTint="@color/colorSecundary" />
+
 
 </RelativeLayout>

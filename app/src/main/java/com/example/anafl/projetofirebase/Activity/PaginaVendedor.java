@@ -1,6 +1,7 @@
 package com.example.anafl.projetofirebase.Activity;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -40,6 +41,10 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
     private String uidComprador;
     private String nomeComprador;
 
+    private Usuario comprador;
+
+    private FloatingActionButton btnAdicionarFavoritos;
+
     private DatabaseReference databaseReference;
     private FirebaseDatabase firebaseDatabase;
 
@@ -61,12 +66,20 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
 
 
         txtNomeVendedor = (TextView) findViewById(R.id.txtNomeVendedorPagVend);
-
         imgPerfilPagVendedor = (ImageView) findViewById(R.id.imgPerfilPagVendedor);
+
+        btnAdicionarFavoritos = (FloatingActionButton) findViewById(R.id.btnAdicionarFavoritos);
+        btnAdicionarFavoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                adicionarFavoritos();
+            }
+        });
 
 
 
         lerNomeComprador();
+
         lerNomeVendedor();
 
         lerPratosDoVendedor();
@@ -109,7 +122,8 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
 
                     listUsers.add(u);
                 }
-                nomeComprador = listUsers.get(0).getNome();
+                comprador = listUsers.get(0);
+                nomeComprador = comprador.getNome();
                 //txtNomeVendedor.setText(nomeVendedor);
             }
 
@@ -119,6 +133,35 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
             }
         });
     }
+
+    private void adicionarFavoritos(){
+
+
+        DatabaseReference compradorReferencia = databaseReference.child("users").child(uidComprador);
+
+        compradorReferencia.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Usuario compradorAux = dataSnapshot.getValue(Usuario.class);
+
+                comprador = compradorAux;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        if(comprador.addFavorito(idVendedor)){
+            compradorReferencia.child("listaIdFavoritos").setValue(comprador.getListaIdFavoritos());
+            Toast.makeText(PaginaVendedor.this, "Favorito adicionado", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(PaginaVendedor.this, "Favorito já existe", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
 
     private void instanciarFirebase() {
         uidComprador = null;
