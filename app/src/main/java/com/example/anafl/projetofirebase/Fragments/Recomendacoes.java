@@ -1,5 +1,6 @@
 package com.example.anafl.projetofirebase.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.anafl.projetofirebase.Activity.PaginaVendedor;
 import com.example.anafl.projetofirebase.Entidades.NoUsuario;
 import com.example.anafl.projetofirebase.Entidades.Usuario;
 import com.example.anafl.projetofirebase.Listas.ClickRecyclerViewInterfaceVendedor;
@@ -170,7 +172,7 @@ public class Recomendacoes extends Fragment implements ClickRecyclerViewInterfac
         }
 
 
-
+        /*
         Log.d("Recomendacoes", "=====================");
         Log.d("Recomendacoes", "Tamanho da lista de NoUsuario: " + this.listaNoUsuario.size());
         for(int f = 0; f < listaNoUsuario.size(); f++){
@@ -180,11 +182,11 @@ public class Recomendacoes extends Fragment implements ClickRecyclerViewInterfac
             }
         }
         Log.d("Recomendacoes", "Altura: "+altura);
-
+        */
         int k = 0;
         if((list.size() > 0)&&(altura<2)){
             while(k < list.size()){
-                Log.d("Recomendacoes", "Gravar em grafo : " + list.get(k).getNome());
+                //Log.d("Recomendacoes", "Gravar em grafo : " + list.get(k).getNome());
                 gravarEmGrafo(new NoUsuario(list.get(k)));
                 k++;
             }
@@ -201,22 +203,6 @@ public class Recomendacoes extends Fragment implements ClickRecyclerViewInterfac
         }
         setAdapter(view, listaUsuario);
 
-        /*
-        while(i < list.size() && (altura < 2)){
-            int j = 0;
-
-            while(j < this.listaNoUsuario.size()){
-
-                if(!this.listaNoUsuario.get(j).getUsuario().getId().equals(list.get(i).getId())){
-                    Log.d("Recomendacoes", "Entrou aqui " + i + "vezes");
-                    gravarEmGrafo(new NoUsuario(list.get(i)));
-                }
-                j++;
-            }
-            i++;
-        }
-        altura++;
-        */
     }
     public void setAdapter(View view, List<Usuario> listUsuario){
 
@@ -228,6 +214,13 @@ public class Recomendacoes extends Fragment implements ClickRecyclerViewInterfac
 
     @Override
     public void onCustomClick(Object object) {
+        Usuario usuarioAtual = (Usuario) object;
+
+        Intent paginaVendedor = new Intent(getContext(), PaginaVendedor.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("idVendedor", usuarioAtual.getId());
+        paginaVendedor.putExtras(bundle);
+        startActivity(paginaVendedor);
     }
 
 }
