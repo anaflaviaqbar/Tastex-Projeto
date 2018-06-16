@@ -89,8 +89,6 @@ public class Favoritos extends Fragment implements ClickRecyclerViewInterfaceVen
 
             }
         });
-
-
     }
 
     private void lerUsuariosFavoritos(Usuario usuarioAux) {
