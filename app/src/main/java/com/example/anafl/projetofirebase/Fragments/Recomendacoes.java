@@ -147,7 +147,7 @@ public class Recomendacoes extends Fragment implements ClickRecyclerViewInterfac
                         listaFav2.add(u);
                     }
                 }
-                Log.d("Recomendacoes", "Tamanho de listaFav2: "+ listaFav2.size());
+                //Log.d("Recomendacoes", "Tamanho de listaFav2: "+ listaFav2.size());
                 setListaFav(listaFav2);
 
             }
@@ -196,7 +196,7 @@ public class Recomendacoes extends Fragment implements ClickRecyclerViewInterfac
         List<Usuario> listaUsuario = new ArrayList<>();
 
         for(int i=1;i<listaNoUsuario.size();i++){
-            if(!listaIdFavUsuarioAtual.contains(listaNoUsuario.get(i).getUsuario().getId())){
+            if((!listaIdFavUsuarioAtual.contains(listaNoUsuario.get(i).getUsuario().getId()))&&(!listaNoUsuario.get(i).getUsuario().getId().equals(uidComprador))){
                 listaUsuario.add(listaNoUsuario.get(i).getUsuario());
             }
 
