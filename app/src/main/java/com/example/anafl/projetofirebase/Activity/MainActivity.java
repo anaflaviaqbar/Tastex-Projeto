@@ -15,6 +15,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,12 +51,17 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
 
     private final int CODIGO_REQUISICAO = 100;
 
+    private ImageView imageViewPerfil;
+    private TextView textViewNomePerfil;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -65,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        imageViewPerfil = (ImageView) findViewById(R.id.profileImageView);
+        textViewNomePerfil = (TextView) findViewById(R.id.textNome);
 
         DatabaseReference imagemReferencia = FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth
                 .getInstance().getCurrentUser().getUid()).child("imagemPerfil");
@@ -78,11 +87,12 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 String imagemUri = dataSnapshot.getValue(String.class);
-                final ImageView imagemPerfil = findViewById(R.id.profileImageView);
-
+                final ImageView imagemPerfil = (ImageView) findViewById(R.id.profileImageView);
+                Log.d("Contexto", getApplicationContext()+"");
                 Glide.with(imagemPerfil.getContext()).asBitmap().load(imagemUri).into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
+                        //imagemPerfil.setImageBitmap(resource);
                         imagemPerfil.setImageBitmap(resource);
                     }
                 });
@@ -102,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 String nome = dataSnapshot.getValue(String.class);
-                final TextView nomePerfil = findViewById(R.id.textNome);
+                final TextView nomePerfil = (TextView) findViewById(R.id.textNome);
                 nomePerfil.setText(nome);
 
 

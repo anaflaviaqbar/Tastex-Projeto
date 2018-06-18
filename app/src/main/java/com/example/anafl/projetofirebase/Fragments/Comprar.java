@@ -84,7 +84,7 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
             public void onClick(View v) {
                 String pesquisa = edtPesquisar.getText().toString();
                 Toast.makeText(getContext(), "Pesquisar: "+pesquisa, Toast.LENGTH_SHORT).show();
-                //pesquisarUsuarios(pesquisa.toLowerCase());
+                pesquisarUsuarios(pesquisa.toLowerCase());
 
             }
         });
@@ -99,12 +99,15 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
     private void pesquisarUsuarios(final CharSequence pesquisa) {
 
         Query query;
-        query = databaseReference.child("users").orderByChild("id");
+        query = databaseReference.child("users");
+
+        final Context context = getContext();
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Usuario> list = new ArrayList<>();
+                //List<Usuario> list = new ArrayList<>();
+                List<Usuario> list = new ListaDistanciaUsuarios(context);
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                     Usuario usuario = snapshot.getValue(Usuario.class);
 

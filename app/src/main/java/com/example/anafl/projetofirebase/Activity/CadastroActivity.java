@@ -15,6 +15,8 @@ import android.widget.Toast;
 import com.example.anafl.projetofirebase.Entidades.Usuario;
 import com.example.anafl.projetofirebase.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -97,8 +99,7 @@ public class CadastroActivity extends AppCompatActivity {
                                 //Log.d(TAG, "createUserWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 writeNewUser(user.getUid());
-                                Toast.makeText(CadastroActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
-                                finish();
+
                                 //updateUI(user);
                             }
                         if(!task.isSuccessful()) {
@@ -195,7 +196,21 @@ public class CadastroActivity extends AppCompatActivity {
 
 //        mDatabase.child("users").child(userId).setValue(usuario);
         DatabaseReference usersReference = FirebaseDatabase.getInstance().getReference("/users");
-        usersReference.child(userId).setValue(usuario);
+
+        Task escreverUsuarioTask = usersReference.child(userId).setValue(usuario);
+        escreverUsuarioTask.addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(CadastroActivity.this, "Cadastro realizado com sucesso", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
+        escreverUsuarioTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(CadastroActivity.this, "Cadastro não realizado", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 

@@ -21,23 +21,18 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/edtEndereçoCompCad"
+            android:hint="Endereço"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/edtEmailCompCad"
             android:hint="E-mail"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edtCepCompCad"
-            android:hint="Cep"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/edtDataNascCompCad"
             android:hint="Data nascimento"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edtContatoCompCad"
-            android:hint="Telefone"/>
 
 
         <RadioGroup

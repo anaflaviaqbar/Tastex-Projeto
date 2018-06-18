@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.anafl.projetofirebase.Entidades.Usuario;
+import com.example.anafl.projetofirebase.Fragments.Comprar;
 import com.example.anafl.projetofirebase.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -203,7 +205,7 @@ public class LoginActivity extends AppCompatActivity {
                             Intent acessar = new Intent(LoginActivity.this , MainActivity.class);
                             startActivity(acessar);
                             finish();
-                            Toast.makeText(LoginActivity.this, "Login com sucesso!!",Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(LoginActivity.this, "Login com sucesso!!",Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
                             //Log.w(TAG, "signInWithEmail:failure", task.getException());
@@ -262,7 +264,10 @@ public class LoginActivity extends AppCompatActivity {
                             //Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(LoginActivity.this, "Autenticação Google com sucesso!",Toast.LENGTH_SHORT).show();
+                            //startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            //verificaCadastro(user.getUid());
                             startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                            finish();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -276,7 +281,30 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
+    private void verificaCadastro(final String uid) {
 
+        DatabaseReference userReference = mDatabase.child("users").child(uid);
+
+        Log.d("Login", "ID usuario: "+uid);
+
+        userReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                }else{
+                    startActivity(new Intent(LoginActivity.this, CompletarCadastroActivity.class));
+                    finish();
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     private void handleFacebookAccessToken(AccessToken token) {

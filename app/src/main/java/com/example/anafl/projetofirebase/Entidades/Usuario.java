@@ -3,6 +3,7 @@ package com.example.anafl.projetofirebase.Entidades;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -185,6 +186,7 @@ public class Usuario {
             Toast.makeText(context, "Endereço não encontrado", Toast.LENGTH_LONG).show();
             return;
         }
+        Log.d("Usuario", "Tamanho da lista de Endereços: "+listaEnderecos.size());
 
         Address endereco = listaEnderecos.get(0);
         latitude = endereco.getLatitude();
