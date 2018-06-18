@@ -1,8 +1,15 @@
 package com.example.anafl.projetofirebase.Entidades;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
+import android.widget.Toast;
+
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,16 +25,19 @@ public class Usuario {
     private String nome;
     private String senha;
     private String confSenha;
-    private String cep;
+    private String endereco;
+    private double latitude;
+    private double longitude;
+    private double distancia;
     private String dataNasc;
     private String sexo;
     private String email;
-    private String telefone;
     private String descricao;
     private String imagemPerfil;
     private List<String> listaIdFavoritos = new ArrayList<>();
 
     public Usuario(){
+
     }
 
     public Usuario(String nome){
@@ -42,9 +52,8 @@ public class Usuario {
         hashMapUsuario.put("email", getEmail());
         hashMapUsuario.put("data nascimento", getDataNasc());
         hashMapUsuario.put("senha", getSenha());
-        hashMapUsuario.put("cep", getCep());
+        hashMapUsuario.put("endereco", getEndereco());
         hashMapUsuario.put("sexo", getSexo());
-        hashMapUsuario.put("telefone", getTelefone());
         hashMapUsuario.put("descricao", getDescricao());
         hashMapUsuario.put("imagemPerfil", getImagemPerfil());
 
@@ -56,14 +65,6 @@ public class Usuario {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
 
     public String getNome() {
@@ -90,12 +91,12 @@ public class Usuario {
         this.confSenha = confSenha;
     }
 
-    public String getCep() {
-        return cep;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setCep(String cep) {
-        this.cep = cep;
+    public void setEndereco(String cep) {
+        this.endereco = cep;
     }
 
     public String getDataNasc() {
@@ -155,5 +156,46 @@ public class Usuario {
             return false;
         }
 
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLatitudeLongitude(Context context) {
+
+        Geocoder geocoder = new Geocoder(context);
+        List<Address> listaEnderecos = null;
+
+        try {
+            listaEnderecos = geocoder.getFromLocationName(endereco, 10);
+        }
+        catch (IOException ex){
+            Toast.makeText(context, "Altere seu endereço", Toast.LENGTH_LONG).show();
+            latitude = longitude = 0.0;
+            endereco = "";
+            return;
+        }
+
+        if(listaEnderecos == null){
+            Toast.makeText(context, "Endereço não encontrado", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        Address endereco = listaEnderecos.get(0);
+        latitude = endereco.getLatitude();
+        longitude = endereco.getLongitude();
+    }
+
+    public double getDistancia() {
+        return distancia;
+    }
+
+    public void setDistancia(double distancia) {
+        this.distancia = distancia;
     }
 }

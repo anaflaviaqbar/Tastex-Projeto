@@ -90,8 +90,7 @@ public class CompletarCadastroActivity extends AppCompatActivity {
 
         usuario.setNome(edtNomeCompCad.getText().toString());
         usuario.setEmail(edtEmailCompCad.getText().toString());
-        usuario.setCep(edtCepCompCad.getText().toString());
-        usuario.setTelefone(edtDataNascCompCad.getText().toString());
+        usuario.setEndereco(edtCepCompCad.getText().toString());
         usuario.setDataNasc(edtContatoCompCad.getText().toString());
         usuario.setSexo(radioButton.getText().toString());
         usuario.setId(userId);

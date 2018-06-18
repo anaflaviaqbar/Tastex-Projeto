@@ -1,9 +1,13 @@
 package com.example.anafl.projetofirebase.Activity;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -40,10 +44,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements SolicitacoesCompra.OnFragmentInteractionListener, Comprar.OnFragmentInteractionListener,
-        Vender.OnFragmentInteractionListener,Vendas.OnFragmentInteractionListener,
-        Compras.OnFragmentInteractionListener,SolicitacoesVenda.OnFragmentInteractionListener, AlterarPerfil.OnFragmentInteractionListener,
-                NavigationView.OnNavigationItemSelectedListener {
+        Vender.OnFragmentInteractionListener, Vendas.OnFragmentInteractionListener,
+        Compras.OnFragmentInteractionListener, SolicitacoesVenda.OnFragmentInteractionListener, AlterarPerfil.OnFragmentInteractionListener,
+        NavigationView.OnNavigationItemSelectedListener {
 
+    private final int CODIGO_REQUISICAO = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             }
         });
 
-        nomeReferencia.addValueEventListener (new ValueEventListener() {
+        nomeReferencia.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
@@ -111,6 +116,11 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             }
         });
 
+        ActivityCompat.requestPermissions(this,
+                new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION},
+                CODIGO_REQUISICAO);
 
         setTitle("Comprar");
         Comprar fragment = new Comprar();
@@ -119,7 +129,22 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
         fragmentTransaction.commit();
     }
 
-
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//
+//        switch (requestCode) {
+//            case CODIGO_REQUISICAO: {
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    setTitle("Comprar");
+//                    Comprar fragment = new Comprar();
+//                    FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+//                    fragmentTransaction.replace(R.id.fram, fragment, "Comprar");
+//                    fragmentTransaction.commit();
+//                }
+//            }
+//        }
+//    }
 
     @Override
     public void onBackPressed() {
@@ -179,13 +204,13 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fram, fragment, "Favoritos");
             fragmentTransaction.commit();
-        }else if (id == R.id.framRecomendacoes) {
+        } else if (id == R.id.framRecomendacoes) {
             setTitle("Recomencações");
             Recomendacoes fragment = new Recomendacoes();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fram, fragment, "Recomencações");
             fragmentTransaction.commit();
-        }else if (id == R.id.framSolicitacoesCompra) {
+        } else if (id == R.id.framSolicitacoesCompra) {
             setTitle("Solicitações Compra");
             SolicitacoesCompra fragment = new SolicitacoesCompra();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -211,12 +236,12 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fram, fragment, "Vendas");
             fragmentTransaction.commit();
-        }else if (id == R.id.framCadastro) {
-                setTitle("Vender");
-                AlterarPerfil fragment = new AlterarPerfil();
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.fram, fragment, "Alterar perfil");
-                fragmentTransaction.commit();
+        } else if (id == R.id.framCadastro) {
+            setTitle("Vender");
+            AlterarPerfil fragment = new AlterarPerfil();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fram, fragment, "Alterar perfil");
+            fragmentTransaction.commit();
         } else if (id == R.id.logout) {
             logout();
         }

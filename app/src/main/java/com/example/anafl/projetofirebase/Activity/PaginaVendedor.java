@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -93,7 +92,8 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
         queryV.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Usuario> listUsers = new ArrayList<Usuario>();
+                List<Usuario> listUsers = new ArrayList<>();
+                //aqui mano
                 for (DataSnapshot objSnapShot:dataSnapshot.getChildren()){
                     Usuario u = objSnapShot.getValue(Usuario.class);
 
@@ -181,7 +181,7 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Prato> listPratos = new ArrayList<Prato>();
-                for (DataSnapshot objSnapShot:dataSnapshot.getChildren()){
+                for (DataSnapshot objSnapShot : dataSnapshot.getChildren()){
                     Prato p = objSnapShot.getValue(Prato.class);
 
                     listPratos.add(p);

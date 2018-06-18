@@ -50,9 +50,18 @@ public class VendedorAdapter extends RecyclerView.Adapter<VendedorAdapter.ViewHo
     public void onBindViewHolder(VendedorAdapter.ViewHolderVendedor holder, int position) {
 
         Usuario user = dados.get(position);
+        double distancia = user.getDistancia();
+        String textoDistancia;
+
+        if(distancia < 1000.0){
+            textoDistancia = String.valueOf(Math.round(distancia)) + " metros";
+        }
+        else{
+            textoDistancia = String.valueOf(Math.round(distancia / 1000.0)) + " km";
+        }
 
         holder.txtTitulo.setText(user.getNome());
-        holder.txtDistancia.setText("100m");  //apenas para teste
+        holder.txtDistancia.setText(textoDistancia);  //apenas para teste
 
         Glide.with(holder.imgPerfilVendedor.getContext()).load(user.getImagemPerfil()).into(holder.imgPerfilVendedor);
 

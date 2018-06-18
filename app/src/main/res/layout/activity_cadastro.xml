@@ -26,18 +26,13 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/edtCadCep"
-            android:hint="Cep"/>
+            android:id="@+id/edtCadEndereco"
+            android:hint="Endereço"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/edtCadDataNasc"
             android:hint="Data nascimento"/>
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edtCadContato"
-            android:hint="Telefone"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

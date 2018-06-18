@@ -1,27 +1,28 @@
 package com.example.anafl.projetofirebase.Fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.anafl.projetofirebase.Activity.PaginaVendedor;
 import com.example.anafl.projetofirebase.Entidades.Usuario;
 import com.example.anafl.projetofirebase.Listas.ClickRecyclerViewInterfaceVendedor;
+import com.example.anafl.projetofirebase.Listas.ListaDistanciaUsuarios;
 import com.example.anafl.projetofirebase.Listas.VendedorAdapter;
 import com.example.anafl.projetofirebase.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,8 +54,7 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
 
     private String pesquisa;
 
-    private List<Usuario> listVendedores = new ArrayList<>();
-
+//    private List<Usuario> listVendedores = new ArrayList<>();
 
     private DatabaseReference databaseReference;
 
@@ -129,11 +129,13 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
     private void lerUsuarios(){
         Query query;
         query = databaseReference.child("users").orderByChild("id");
+        final Context context = getContext();
 
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Usuario> listaUsuarios = new ArrayList<>();
+//                List<Usuario> listaUsuarios = new ArrayList<>();
+                List<Usuario> listaUsuarios = new ListaDistanciaUsuarios(context);
                 for (DataSnapshot objSnapShot:dataSnapshot.getChildren()){
                     Usuario usuario = objSnapShot.getValue(Usuario.class);
 
@@ -151,6 +153,7 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
 
     public void setAdapter(View view, List<Usuario> listUsuario){
 
+        ((ListaDistanciaUsuarios) listUsuario).ordenarLista();
         vendedorAdapter = new VendedorAdapter(listUsuario, this);
         mRecyclerView.setAdapter(vendedorAdapter);
 

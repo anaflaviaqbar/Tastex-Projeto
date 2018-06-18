@@ -30,13 +30,12 @@ public class CadastroActivity extends AppCompatActivity {
 
     private EditText edtCadEmail;
     private EditText edtCadNome;
-    private EditText edtCadContato;
     private EditText edtCadDataNasc;
     private EditText edtCadSenha;
     private EditText edtConfSenha;
     private RadioButton rbMasculino;
     private RadioButton rbFeminino;
-    private EditText edtCadCep;
+    private EditText edtCadEndereco;
     private Button btnGravar;
 //    private Usuario usuario;
 
@@ -63,13 +62,12 @@ public class CadastroActivity extends AppCompatActivity {
 
         edtCadEmail = (EditText) findViewById(R.id.edtCadEmail);
         edtCadNome = (EditText) findViewById(R.id.edtCadNome);
-        edtCadCep = (EditText) findViewById(R.id.edtCadCep);
+        edtCadEndereco = (EditText) findViewById(R.id.edtCadEndereco);
         edtCadDataNasc = (EditText) findViewById(R.id.edtCadDataNasc);
         edtCadSenha = (EditText) findViewById(R.id.edtCadSenha);
         edtConfSenha = (EditText) findViewById(R.id.edtConfSenha);
         rbFeminino = (RadioButton) findViewById(R.id.rbFeminino);
         rbMasculino = (RadioButton) findViewById(R.id.rbMasculino);
-        edtCadContato = (EditText) findViewById(R.id.edtCadContato);
 
 
         btnGravar = (Button) findViewById(R.id.btnGravar);
@@ -123,6 +121,7 @@ public class CadastroActivity extends AppCompatActivity {
                         // ...
                     }
                 });
+
     }
 
     /*
@@ -181,8 +180,7 @@ public class CadastroActivity extends AppCompatActivity {
 
         usuario.setNome(edtCadNome.getText().toString());
         usuario.setEmail(edtCadEmail.getText().toString());
-        usuario.setCep(edtCadCep.getText().toString());
-        usuario.setTelefone(edtCadContato.getText().toString());
+        usuario.setEndereco(edtCadEndereco.getText().toString());
         usuario.setDataNasc(edtCadDataNasc.getText().toString());
         usuario.setSenha(edtCadSenha.getText().toString());
         if(isFeminino){
@@ -193,28 +191,26 @@ public class CadastroActivity extends AppCompatActivity {
         usuario.setId(userId);
         usuario.setDescricao("");
         usuario.setImagemPerfil("");
+        usuario.setLatitudeLongitude(this);
 
-        mDatabase.child("users").child(userId).setValue(usuario);
-//        mDatabase.child("users").child(userId).setValue(new Usuario());
-//        mDatabase.child("users").child(userId).setValue(new Usuario());
-//        mDatabase.child("users").child(userId).setValue(new Usuario());
-//        mDatabase.child("users").child(userId).setValue(new Usuario());
-//        mDatabase.child("users").child(userId).setValue(new Usuario());
-//        mDatabase.child("users").child(userId).setValue(new Usuario());
+//        mDatabase.child("users").child(userId).setValue(usuario);
+        DatabaseReference usersReference = FirebaseDatabase.getInstance().getReference("/users");
+        usersReference.child(userId).setValue(usuario);
+
     }
+
     public boolean validaCampos(boolean res) {
         String nome = edtCadNome.getText().toString();
         String email = edtCadEmail.getText().toString();
         String senha = edtCadSenha.getText().toString();
         String confsenha = edtConfSenha.getText().toString();
-        String cep = edtCadCep.getText().toString();
+        String endereco = edtCadEndereco.getText().toString();
         String datanasc = edtCadDataNasc.getText().toString();
-        String telefone = edtCadContato.getText().toString();
 
         if (this.res = campoVazio(nome)) {
             edtCadNome.requestFocus();
-        } else if (this.res = campoVazio(cep)) {
-            edtCadCep.requestFocus();
+        } else if (this.res = campoVazio(endereco)) {
+            edtCadEndereco.requestFocus();
         } else if (this.res = campoVazio(email)) {
             edtCadEmail.requestFocus();
         } else if (this.res = campoVazio(senha)) {
@@ -223,8 +219,6 @@ public class CadastroActivity extends AppCompatActivity {
             edtConfSenha.requestFocus();
         } else if (this.res = campoVazio(datanasc)) {
             edtCadDataNasc.requestFocus();
-        } else if (this.res = campoVazio(telefone)) {
-            edtCadContato.requestFocus();
 
         }
 
