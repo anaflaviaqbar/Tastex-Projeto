@@ -21,4 +21,12 @@
         <item>Vegano</item>
         <item>Sem Classificação</item>
     </string-array>
+
+    <string-array name="tipos_pratos_pesquisar">
+        <item>Todos</item>
+        <item>Normal</item>
+        <item>Low Carb</item>
+        <item>Vegetariano</item>
+        <item>Vegano</item>
+    </string-array>
 </resources>

@@ -23,7 +23,12 @@
         <item
             android:id="@+id/framCompra"
             android:icon="@drawable/compra"
-            android:title="Comprar"
+            android:title="Comprar por Vendedores"
+            />
+        <item
+            android:id="@+id/framComprarPrato"
+            android:icon="@drawable/compra"
+            android:title="Comprar por Pratos"
             />
         <item
             android:id="@+id/framVenda"

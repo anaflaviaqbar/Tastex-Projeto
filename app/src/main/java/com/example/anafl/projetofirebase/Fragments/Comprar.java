@@ -58,6 +58,7 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
 
     private DatabaseReference databaseReference;
 
+
     public Comprar() {
         // Required empty public constructor
     }
@@ -94,6 +95,14 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
 
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        lerUsuarios();
+
     }
 
     private void pesquisarUsuarios(final CharSequence pesquisa) {

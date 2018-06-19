@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,6 +82,8 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
 
         lerNomeVendedor();
 
+        Log.d("ComprarPratoFragment", "Nome Vendedor: "+nomeVendedor);
+
         lerPratosDoVendedor();
 
 
@@ -112,26 +115,26 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
     }
     private void lerNomeComprador(){
 
-        Query queryV = databaseReference.child("users").orderByChild("id").equalTo(uidComprador);
-        queryV.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Usuario> listUsers = new ArrayList<Usuario>();
-                for (DataSnapshot objSnapShot:dataSnapshot.getChildren()){
-                    Usuario u = objSnapShot.getValue(Usuario.class);
+            Query queryV = databaseReference.child("users").orderByChild("id").equalTo(uidComprador);
+            queryV.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    List<Usuario> listUsers = new ArrayList<Usuario>();
+                    for (DataSnapshot objSnapShot:dataSnapshot.getChildren()){
+                        Usuario u = objSnapShot.getValue(Usuario.class);
 
-                    listUsers.add(u);
+                        listUsers.add(u);
+                    }
+                    comprador = listUsers.get(0);
+                    nomeComprador = comprador.getNome();
+                    //txtNomeVendedor.setText(nomeVendedor);
                 }
-                comprador = listUsers.get(0);
-                nomeComprador = comprador.getNome();
-                //txtNomeVendedor.setText(nomeVendedor);
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
     }
 
     private void adicionarFavoritos(){
@@ -194,8 +197,6 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
 
             }
         });
-
-
     }
 
     public void instanciarRecyclerView(/*View view,*/ List<Prato> listPratos){

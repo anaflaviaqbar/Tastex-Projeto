@@ -29,8 +29,10 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.example.anafl.projetofirebase.Fragments.AlterarPerfil;
 import com.example.anafl.projetofirebase.Fragments.Comprar;
+import com.example.anafl.projetofirebase.Fragments.ComprarPrato;
 import com.example.anafl.projetofirebase.Fragments.Compras;
 import com.example.anafl.projetofirebase.Fragments.Favoritos;
+import com.example.anafl.projetofirebase.Fragments.Pesquisar;
 import com.example.anafl.projetofirebase.Fragments.Recomendacoes;
 import com.example.anafl.projetofirebase.Fragments.SolicitacoesCompra;
 import com.example.anafl.projetofirebase.Fragments.SolicitacoesVenda;
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
 
         setTitle("Comprar");
         Comprar fragment = new Comprar();
+        //Pesquisar fragment = new Pesquisar();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fram, fragment, "Comprar");
         fragmentTransaction.commit();
@@ -199,10 +202,19 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             // Handle the camera action
             setTitle("Comprar");
             Comprar fragment = new Comprar();
+            //Pesquisar fragment = new Pesquisar();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fram, fragment, "Comprar");
             fragmentTransaction.commit();
-        } else if (id == R.id.framVenda) {
+        } else if (id == R.id.framComprarPrato) {
+            // Handle the camera action
+            setTitle("Comprar Prato");
+            ComprarPrato fragment = new ComprarPrato();
+            //Pesquisar fragment = new Pesquisar();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fram, fragment, "Comprar Prato");
+            fragmentTransaction.commit();
+        }else if (id == R.id.framVenda) {
             setTitle("Vender");
             Vender fragment = new Vender();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

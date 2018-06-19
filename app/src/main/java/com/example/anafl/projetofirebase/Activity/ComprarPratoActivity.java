@@ -6,18 +6,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.anafl.projetofirebase.Entidades.Pedido;
+import com.example.anafl.projetofirebase.Entidades.Usuario;
 import com.example.anafl.projetofirebase.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ComprarPratoActivity extends AppCompatActivity {
 
@@ -34,6 +42,8 @@ public class ComprarPratoActivity extends AppCompatActivity {
     private TextView descPratoComprarPrato;
     private TextView precoPratoComprarPrato;
     private ImageView imgPratoComprarPrato;
+
+
 
     private Button comprarPrato;
 
@@ -56,7 +66,7 @@ public class ComprarPratoActivity extends AppCompatActivity {
         precoPrato = bundle.getFloat("preco");
         uidPrato = bundle.getString("uidPrato");
         nomeComprador = bundle.getString("nomeComprador");
-        nomeVendedor = bundle.getString("nomeVendedor");
+        //nomeVendedor = bundle.getString("nomeVendedor");
         imgPratoUrl = bundle.getString("imgPratoUrl");
 
         nomePratoComprarPrato = (TextView) findViewById(R.id.txtNomePratoComprarPrato);
@@ -71,6 +81,8 @@ public class ComprarPratoActivity extends AppCompatActivity {
         Glide.with(imgPratoComprarPrato.getContext()).load(imgPratoUrl).into(imgPratoComprarPrato);
 
         inicializarFirebase();
+
+        lerNomeVendedor(idVendedor);
 
         comprarPrato = (Button) findViewById(R.id.btnComprarPrato);
         comprarPrato.setOnClickListener(new View.OnClickListener() {
@@ -107,10 +119,36 @@ public class ComprarPratoActivity extends AppCompatActivity {
         Toast.makeText(ComprarPratoActivity.this, "Pedido realizado com sucesso", Toast.LENGTH_SHORT).show();
     }
 
+
+
     private void inicializarFirebase() {
         firebaseAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = firebaseAuth.getCurrentUser();
+    }
+
+    private void lerNomeVendedor(String idVendedor){
+
+        Query queryV = databaseReference.child("users").orderByChild("id").equalTo(idVendedor);
+        queryV.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Usuario> listUsers = new ArrayList<>();
+                //aqui mano
+                for (DataSnapshot objSnapShot:dataSnapshot.getChildren()){
+                    Usuario u = objSnapShot.getValue(Usuario.class);
+
+                    listUsers.add(u);
+                }
+                nomeVendedor = listUsers.get(0).getNome();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }
