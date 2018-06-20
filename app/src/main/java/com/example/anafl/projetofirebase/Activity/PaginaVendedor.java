@@ -1,7 +1,10 @@
 package com.example.anafl.projetofirebase.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +18,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.anafl.projetofirebase.Entidades.Prato;
 import com.example.anafl.projetofirebase.Entidades.Usuario;
+import com.example.anafl.projetofirebase.Fragments.AlterarPerfil;
+import com.example.anafl.projetofirebase.Fragments.SolicitacoesCompra;
 import com.example.anafl.projetofirebase.Listas.ClickRecyclerViewInterfacePrato;
 import com.example.anafl.projetofirebase.Listas.PratoAdapter;
 import com.example.anafl.projetofirebase.R;
@@ -30,7 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerViewInterfacePrato {
+public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerViewInterfacePrato , AlterarPerfil.OnFragmentInteractionListener {
 
 
     private String idVendedor;
@@ -75,7 +80,6 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
                 adicionarFavoritos();
             }
         });
-
 
 
         lerNomeComprador();
@@ -232,5 +236,10 @@ public class PaginaVendedor extends AppCompatActivity implements ClickRecyclerVi
         comprarPrato.putExtras(bundle);
 
         startActivity(comprarPrato);
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

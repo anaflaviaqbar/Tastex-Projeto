@@ -144,6 +144,10 @@ public class ListaDistanciaUsuarios extends ArrayList<Usuario> {
 
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+            if(location == null){
+                return new LatLng(0,0);
+            }
             return new LatLng(location.getLatitude(), location.getLongitude());
         }
 
