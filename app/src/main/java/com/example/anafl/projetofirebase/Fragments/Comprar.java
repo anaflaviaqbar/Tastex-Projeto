@@ -1,10 +1,14 @@
 package com.example.anafl.projetofirebase.Fragments;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -93,6 +97,11 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
 
         lerUsuarios();
 
+        if (!((LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            // Call your Alert message
+            pedirLigarGps();
+        }
+
 
         return view;
     }
@@ -163,12 +172,14 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
         });
     }
 
-    public void setAdapter(View view, List<Usuario> listUsuario){
+    public void setAdapter(View view, List<Usuario> listUsuario) {
 
-        ((ListaDistanciaUsuarios) listUsuario).ordenarLista();
-        vendedorAdapter = new VendedorAdapter(listUsuario, this);
-        mRecyclerView.setAdapter(vendedorAdapter);
+        if (((LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE)).isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            ((ListaDistanciaUsuarios) listUsuario).ordenarLista();
+            vendedorAdapter = new VendedorAdapter(listUsuario, this);
+            mRecyclerView.setAdapter(vendedorAdapter);
 
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -220,6 +231,27 @@ public class Comprar extends Fragment implements ClickRecyclerViewInterfaceVende
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    private void pedirLigarGps() {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+        alertDialog.setTitle("Configuração GPS");
+        alertDialog.setMessage("Por favor, ligue o GPS para melhorar a experiência");
+        alertDialog.setPositiveButton("Configurações", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                getContext().startActivity(intent);
+            }
+        });
+        alertDialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
     }
 
 }

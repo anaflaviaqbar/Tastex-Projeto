@@ -22,7 +22,7 @@ public class ListaDistanciaUsuarios extends ArrayList<Usuario> {
 
     private Context context;
 
-    public ListaDistanciaUsuarios(Context context){
+    public ListaDistanciaUsuarios(Context context) {
         this.context = context;
     }
 
@@ -40,7 +40,7 @@ public class ListaDistanciaUsuarios extends ArrayList<Usuario> {
         Usuario temp;
 
         i = 0;
-        for(Object o : toArray()){
+        for (Object o : toArray()) {
             listaDeUsuarios[i] = (Usuario) o;
             ++i;
         }
@@ -106,13 +106,19 @@ public class ListaDistanciaUsuarios extends ArrayList<Usuario> {
         double deltaLongitude;
         double distancia;
 
-        if(minhaLocalizacao != null){
+        if (minhaLocalizacao != null) {
             minhaLatitude = minhaLocalizacao.latitude;
             minhaLongitude = minhaLocalizacao.longitude;
         }
 
-        for(Usuario u : lista) {
+        for (Usuario u : lista) {
 
+
+
+            if(u.getLatitude() == 0 && u.getLongitude() == 0){
+                u.setDistancia(0);
+                continue;
+            }
             latitudeU1 = grauRadiano(minhaLatitude);
             latitudeU2 = grauRadiano(u.getLatitude());
             deltaLatitude = grauRadiano(u.getLatitude() - minhaLatitude);
@@ -132,9 +138,9 @@ public class ListaDistanciaUsuarios extends ArrayList<Usuario> {
         return (angulo / 180.0) * Math.PI;
     }
 
-    private LatLng pegarMinhaLocalizacao(){
+    private LatLng pegarMinhaLocalizacao() {
 
-        if (ContextCompat.checkSelfPermission(context, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
             Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
@@ -146,3 +152,4 @@ public class ListaDistanciaUsuarios extends ArrayList<Usuario> {
         return null;
     }
 }
+

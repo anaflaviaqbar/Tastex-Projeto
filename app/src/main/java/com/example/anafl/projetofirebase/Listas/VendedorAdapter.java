@@ -53,7 +53,9 @@ public class VendedorAdapter extends RecyclerView.Adapter<VendedorAdapter.ViewHo
         double distancia = user.getDistancia();
         String textoDistancia;
 
-        if(distancia < 1000.0){
+        if (distancia <= 0) {
+            textoDistancia = "Distância desconhecida";
+        } else if(distancia < 1000.0){
             textoDistancia = String.valueOf(Math.round(distancia)) + " metros";
         }
         else{

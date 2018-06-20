@@ -6,6 +6,10 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/framAlteraDados"
+            android:title="Alterar Dados"
+            android:icon="@drawable/alteradados"/>
+        <item
             android:id="@+id/framCadastro"
             android:title="Alterar Perfil"
             android:icon="@drawable/editaperfil"

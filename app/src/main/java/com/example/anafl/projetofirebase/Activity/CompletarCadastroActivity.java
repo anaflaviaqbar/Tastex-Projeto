@@ -116,6 +116,7 @@ public class CompletarCadastroActivity extends AppCompatActivity {
         //usuario.setSexo(radioButton.getText().toString());
         usuario.setDataNasc(edtDataNascCompCad.getText().toString());
         usuario.setEndereco(edtEndereçoCompCad.getText().toString());
+        usuario.setLatitudeLongitude(this);
         usuario.setId(userId);
         usuario.setDescricao("");
         usuario.setImagemPerfil("");

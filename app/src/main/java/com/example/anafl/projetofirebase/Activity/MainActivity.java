@@ -15,7 +15,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,12 +26,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.anafl.projetofirebase.Fragments.AlteraDados;
 import com.example.anafl.projetofirebase.Fragments.AlterarPerfil;
 import com.example.anafl.projetofirebase.Fragments.Comprar;
 import com.example.anafl.projetofirebase.Fragments.ComprarPrato;
 import com.example.anafl.projetofirebase.Fragments.Compras;
 import com.example.anafl.projetofirebase.Fragments.Favoritos;
-import com.example.anafl.projetofirebase.Fragments.Pesquisar;
 import com.example.anafl.projetofirebase.Fragments.Recomendacoes;
 import com.example.anafl.projetofirebase.Fragments.SolicitacoesCompra;
 import com.example.anafl.projetofirebase.Fragments.SolicitacoesVenda;
@@ -48,14 +47,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements SolicitacoesCompra.OnFragmentInteractionListener, Comprar.OnFragmentInteractionListener,
         Vender.OnFragmentInteractionListener, Vendas.OnFragmentInteractionListener,
-        Compras.OnFragmentInteractionListener, SolicitacoesVenda.OnFragmentInteractionListener, AlterarPerfil.OnFragmentInteractionListener,
+        Compras.OnFragmentInteractionListener,
+        AlteraDados.OnFragmentInteractionListener, SolicitacoesVenda.OnFragmentInteractionListener, AlterarPerfil.OnFragmentInteractionListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     private final int CODIGO_REQUISICAO = 100;
-
-    private ImageView imageViewPerfil;
-    private TextView textViewNomePerfil;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
-
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -73,9 +68,6 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        imageViewPerfil = (ImageView) findViewById(R.id.profileImageView);
-        textViewNomePerfil = (TextView) findViewById(R.id.textNome);
 
         DatabaseReference imagemReferencia = FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth
                 .getInstance().getCurrentUser().getUid()).child("imagemPerfil");
@@ -89,12 +81,11 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 String imagemUri = dataSnapshot.getValue(String.class);
-                final ImageView imagemPerfil = (ImageView) findViewById(R.id.profileImageView);
-                Log.d("Contexto", getApplicationContext()+"");
+                final ImageView imagemPerfil = findViewById(R.id.profileImageView);
+
                 Glide.with(imagemPerfil.getContext()).asBitmap().load(imagemUri).into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, Transition<? super Bitmap> transition) {
-                        //imagemPerfil.setImageBitmap(resource);
                         imagemPerfil.setImageBitmap(resource);
                     }
                 });
@@ -114,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
                 String nome = dataSnapshot.getValue(String.class);
-                final TextView nomePerfil = (TextView) findViewById(R.id.textNome);
+                final TextView nomePerfil = findViewById(R.id.textNome);
                 nomePerfil.setText(nome);
 
 
@@ -136,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
 
         setTitle("Comprar");
         Comprar fragment = new Comprar();
-        //Pesquisar fragment = new Pesquisar();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.fram, fragment, "Comprar");
         fragmentTransaction.commit();
@@ -202,19 +192,16 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             // Handle the camera action
             setTitle("Comprar");
             Comprar fragment = new Comprar();
-            //Pesquisar fragment = new Pesquisar();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fram, fragment, "Comprar");
             fragmentTransaction.commit();
-        } else if (id == R.id.framComprarPrato) {
-            // Handle the camera action
-            setTitle("Comprar Prato");
-            ComprarPrato fragment = new ComprarPrato();
-            //Pesquisar fragment = new Pesquisar();
+        }else if(id== R.id.framAlteraDados){
+            setTitle("Alterar Dados");
+            AlteraDados fragment = new AlteraDados();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fram, fragment, "Comprar Prato");
+            fragmentTransaction.replace(R.id.fram, fragment, "Alterar Dados");
             fragmentTransaction.commit();
-        }else if (id == R.id.framVenda) {
+        } else if (id == R.id.framVenda) {
             setTitle("Vender");
             Vender fragment = new Vender();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -251,7 +238,14 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fram, fragment, "Compras");
             fragmentTransaction.commit();
-
+        } else if (id == R.id.framComprarPrato) {
+            // Handle the camera action
+            setTitle("Comprar Prato");
+            ComprarPrato fragment = new ComprarPrato();
+            //Pesquisar fragment = new Pesquisar();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fram, fragment, "Comprar Prato");
+            fragmentTransaction.commit();
         } else if (id == R.id.framHistoricoV) {
             setTitle("Historico de Vendas");
             Vendas fragment = new Vendas();
