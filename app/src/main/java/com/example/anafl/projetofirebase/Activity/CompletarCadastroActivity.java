@@ -97,8 +97,9 @@ public class CompletarCadastroActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 writeNewUser(uid);
-                //Intent mainAct = new Intent(CompletarCadastroActivity.this, MainActivity.class);
-                //startActivity(mainAct);
+                Intent mainAct = new Intent(CompletarCadastroActivity.this, MainActivity.class);
+                startActivity(mainAct);
+                finish();
             }
         });
     }
@@ -121,7 +122,9 @@ public class CompletarCadastroActivity extends AppCompatActivity {
         usuario.setDescricao("");
         usuario.setImagemPerfil("");
 
-        Task escreverUsuarioGmailTask = mDatabase.child("users").child(userId).setValue(usuario);
+        mDatabase.child("users").child(userId).setValue(usuario);
+        //Task escreverUsuarioGmailTask = mDatabase.child("users").child(userId).setValue(usuario);
+        /*
         escreverUsuarioGmailTask.addOnSuccessListener(new OnSuccessListener() {
             @Override
             public void onSuccess(Object o) {
@@ -135,7 +138,7 @@ public class CompletarCadastroActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(CompletarCadastroActivity.this, "Cadastro sem sucesso!", Toast.LENGTH_LONG).show();
             }
-        });
+        });*/
 //        mDatabase.child("users").child(userId).setValue(new Usuario());
 //        mDatabase.child("users").child(userId).setValue(new Usuario());
 //        mDatabase.child("users").child(userId).setValue(new Usuario());
@@ -160,26 +163,26 @@ public class CompletarCadastroActivity extends AppCompatActivity {
                 Usuario usuarioComCad = dataSnapshot.getValue(Usuario.class);
                 //txtNomeVendedor.setText(nomeVendedor);
 
-
-                if(!(usuarioComCad.getNome() == null)){
-                    edtNomeCompCad.setText(usuarioComCad.getNome());
-                }
-                if(!(usuarioComCad.getDataNasc() == null)){
-                    edtDataNascCompCad.setText(usuarioComCad.getDataNasc());
-                }
-                if(!(usuarioComCad.getSexo() == null)){
-                    if(usuarioComCad.getSexo().equals("Masculino")){
-                        rbMasculino.setChecked(true);
-                        rbFeminino.setChecked(false);
-                    }else{
-                        rbFeminino.setChecked(true);
-                        rbMasculino.setChecked(false);
+                if(!(usuarioComCad == null)){
+                    if (!(usuarioComCad.getNome() == null)) {
+                        edtNomeCompCad.setText(usuarioComCad.getNome());
+                    }
+                    if (!(usuarioComCad.getDataNasc() == null)) {
+                        edtDataNascCompCad.setText(usuarioComCad.getDataNasc());
+                    }
+                    if (!(usuarioComCad.getSexo() == null)) {
+                        if (usuarioComCad.getSexo().equals("Masculino")) {
+                            rbMasculino.setChecked(true);
+                            rbFeminino.setChecked(false);
+                        } else {
+                            rbFeminino.setChecked(true);
+                            rbMasculino.setChecked(false);
+                        }
+                    }
+                    if (!(usuarioComCad.getEndereco() == null)) {
+                        edtEndereçoCompCad.setText(usuarioComCad.getEndereco());
                     }
                 }
-                if(!(usuarioComCad.getEndereco() == null)){
-                    edtEndereçoCompCad.setText(usuarioComCad.getEndereco());
-                }
-
 
             }
 

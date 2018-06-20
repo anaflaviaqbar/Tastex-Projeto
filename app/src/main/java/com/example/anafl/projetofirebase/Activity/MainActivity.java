@@ -1,6 +1,8 @@
 package com.example.anafl.projetofirebase.Activity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -53,12 +55,16 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
 
     private final int CODIGO_REQUISICAO = 100;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -74,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements SolicitacoesCompr
 
         DatabaseReference nomeReferencia = FirebaseDatabase.getInstance().getReference("users").child(FirebaseAuth
                 .getInstance().getCurrentUser().getUid()).child("nome");
+
 
 
         imagemReferencia.addValueEventListener(new ValueEventListener() {
